@@ -14,7 +14,7 @@ import {HtModule} from "ht-angular-client";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HtModule.forRoot({token: 'sk_55fc65eb64c0b10300c54ff79ea3f6ef22981793', mapType: 'google'}),
+    HtModule.forRoot({token: 'sk_test_2fe3c0c11b993be96afc00e3e5f9f7e1da98ff65', mapType: 'google'}),
   ],
   providers: [],
   bootstrap: [AppComponent]
