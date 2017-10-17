@@ -1,6 +1,6 @@
 #requires built images:
 #from this directory run:
-#docker build -t img-tt-dashboard .
+#docker build -t $TT_DASHBOARD_IMAGE .
 
 #run docker compose:
 #docker-compose -f docker-compose.yml up
@@ -17,11 +17,13 @@ services:
   tt-dashboard:
     image: ${TT_DASHBOARD_IMAGE}
     container_name: tt-dashboard-cont
+    build: .
+    command: "npm start -- --host=0.0.0.0"
     ports:
       - "80:4200"
     volumes:
-      - ${TT_DASHBOARD_CODE}:/usr/share/nginx/html
-      - /usr/share/nginx/html/node_modules
+      - ${TT_DASHBOARD_CODE}:/home/app/tt-dashboard
+      - /home/app/tt-dashboard/node_modules
     labels:
       kompose.service.type: LoadBalancer
-    working_dir: /usr/share/nginx/html
+    working_dir: /home/app/tt-dashboard
