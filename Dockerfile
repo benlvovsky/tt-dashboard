@@ -6,7 +6,7 @@ ENV HOME /home/$APP_USER
 ENV APP_DIR $HOME/$APP_NAME
 
 RUN useradd --user-group --create-home --shell /bin/false $APP_USER
-RUN npm install --global @angular/cli
+RUN npm install --global --save-dev @angular/cli@latest
 
 WORKDIR $APP_DIR
 COPY package.json $APP_DIR/package.json
