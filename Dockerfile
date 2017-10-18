@@ -1,22 +1,25 @@
-FROM node:6.9.2
+# Create image based on the official Node 6 image from dockerhub
+FROM node:6
 
-ENV APP_NAME "tt-dashboard"
-ENV APP_USER "app"
-ENV HOME /home/$APP_USER
-ENV APP_DIR $HOME/$APP_NAME
+# Create a directory where our app will be placed
+RUN mkdir -p /usr/src/app
 
-RUN useradd --user-group --create-home --shell /bin/false $APP_USER
-RUN npm install --global --save-dev @angular/cli@latest
+# Change directory so that our commands run inside this new directory
+WORKDIR /usr/src/app
 
-WORKDIR $APP_DIR
-COPY package.json $APP_DIR/package.json
-RUN npm install && npm cache clean
-COPY . $APP_DIR
-RUN chown -R $APP_USER:$APP_USER $HOME/*
+# Copy dependency definitions
+COPY package.json /usr/src/app
 
-USER $APP_USER
-WORKDIR $APP_DIR
+# Install dependecies
+RUN npm install
 
-EXPOSE 4200 49152
+# Get all the code needed to run the app
+COPY . /usr/src/app
+
+# Expose the port the app runs in
+EXPOSE 4200
+
+# Serve the app
+#CMD ["npm", "start"]
 
 CMD ["npm", "start", "--host=0.0.0.0"]
